@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+float arr[] = {0.897, 0.565, 0.656, 0.1234, 0.665, 0.3434};
+
+void bucketSort( int n)
+{
+    vector<float> bucket[n];
+
+    for (int i=0 ; i<n ; i++)
+       bucket[int(n*arr[i])].push_back(arr[i]);
+
+
+    for (int i=0 ; i<n ; i++)
+       sort(bucket[i].begin(), bucket[i].end());
+
+    int index = 0;
+    for (int i = 0 ; i<n ; i++){
+        while(!bucket[i].empty()){
+            arr[index++]=*(bucket[i].begin());
+            bucket[i].erase(bucket[i].begin());
+        }
+    }
+}
+
+int main()
+{
+    int n = sizeof(arr)/sizeof(arr[0]);
+    bucketSort( n);
+
+    printf("\nSorted :\n");
+
+    for (int i=0; i<n; i++)
+       printf("%.3lf ",arr[i]);
+
+    return 0;
+}

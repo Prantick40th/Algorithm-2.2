@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+#define MAX 10000
+
+int A[MAX];
+int B[MAX];
+int C[MAX];
+int n;
+
+void countingSort()
+{
+    for(int i=0 ; i<n ; i++){
+        C[A[i]]++;
+    }
+
+    int max = A[0];
+    for(int i=0 ; i<n ; i++){
+        if(A[i]>max)
+            max=A[i];
+    }
+
+    for(int i=0 ; i<=max ; i++){
+        C[i]=C[i]+C[i-1];
+    }
+
+    for(int i=n-1 ; i>=0 ; i--){
+        B[C[A[i]]]=A[i];
+        C[A[i]]--;
+    }
+}
+
+int main()
+{
+    printf("Enter array size : ");
+    scanf("%d",&n);
+
+    for(int i=0 ; i<n ; i++){
+        scanf("%d",&A[i]);
+    }
+
+    countingSort();
+    printf("\n");
+
+    for(int i=1 ; i<=n ; i++)
+        printf("%d ",B[i]);
+
+        return 0;
+}

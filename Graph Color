@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int Adj[100][100];
+int color[10];
+
+void find_color(int k)
+{
+    color[k]=1;
+    for(int i=0 ; i<k ; i++)
+    {
+        if(Adj[i][k]!=0 && color[k]==color[i])
+            color[k]=color[i]+1;
+    }
+}
+
+
+int main()
+{
+    printf("Enter no. of vertices : ");
+    int n;
+    scanf("%d",&n);
+
+    printf("Enter no. of edges : ");
+    int m;
+    scanf("%d",&m);
+
+    memset(Adj, 0, sizeof(Adj));
+
+    printf("Enter Edge connection \n");
+    int k,l;
+    for(int i=0 ; i<m ; i++)
+    {
+        scanf("%d %d",&k,&l);
+        Adj[k][l]=1;
+        Adj[l][k]=1;
+    }
+
+    for(int i=0 ; i<n ; i++)
+        find_color(i);
+
+    printf("\n\nColors of vertices \n");
+
+
+   for(int i=0 ; i<n ; i++){
+
+            switch(color[i])
+            {
+            case 1:
+                printf("Vertex[%d] : RED\n",i+1);
+                break;
+            case 2:
+                printf("Vertex[%d] : GREEN\n",i+1);
+                break;
+            case 3:
+                printf("Vertex[%d] : BLUE\n",i+1);
+                break;
+            }
+   }
+
+    return 0;
+}

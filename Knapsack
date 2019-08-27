@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+#include<math.h>
+using namespace std;
+
+int knapsack(int p[], int wt[], int n,int m)
+{
+   int I,W;
+   int K[n+1][m+1];
+
+   for(I=0 ; I<=n ; I++)
+   {
+       for(W=0 ; W<=m ; W++)
+       {
+           if (I==0 || W==0)
+               K[I][W] = 0;
+           else if (wt[I-1] <= W)
+                 K[I][W] = max(K[I-1][W],K[I-1][W-wt[I-1]]+p[I-1]);
+           else
+                 K[I][W]=K[I-1][W];
+
+           printf("\t%d",K[I][W]);
+       }
+       printf("\n");
+
+   }
+   return K[n][m];
+}
+int main()
+{
+    int p[50],wt[50],m;
+
+    printf("Enter number of wight and cost : \n");
+    int n;
+    scanf("%d",&n);
+
+    printf("Enter cost : \n");
+    for(int i=0 ; i<n ; i++)
+        scanf("%d",&p[i]);
+
+    printf("Enter weight : \n");
+    for(int i=0 ; i<n ; i++)
+        scanf("%d",&wt[i]);
+
+    printf("Maximum size : \n");
+    scanf("%d",&m);
+
+    printf("\nMax profit = %d",knapsack(p,wt,n,m));
+}

@@ -18,6 +18,14 @@ void bucketSort( int n)
        sort(bucket[i].begin(), bucket[i].end());
 
     int index = 0;
+    
+    
+    /*
+    for (int i = 0; i < n; i++) 
+        for (int j = 0; j < b[i].size(); j++) 
+          arr[index++] = b[i][j];
+          */
+    
     for (int i = 0 ; i<n ; i++){
         while(!bucket[i].empty()){
             arr[index++]=*(bucket[i].begin());

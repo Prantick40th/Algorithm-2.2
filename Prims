@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define N 5
+
+void Display(int parent[], int graph[N][N])
+{
+    int edge_count = 0;
+    for (int i=1 ; i<N ; i++)
+        printf("Edge %d -> (%d, %d) , cost:%d \n",edge_count++,parent[i],i,graph[i][parent[i]]);
+}
+
+int minKey(int key[], bool mstSet[])
+{
+    int min = INT_MAX, min_index;
+
+    for (int v=0 ; v<N ; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+
+    return min_index;
+}
+
+void prims_MST(int graph[N][N])
+{
+    int parent[N];
+    int key[N];
+    bool mstSet[N];
+
+    for (int i=0 ; i<N ; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
+
+    key[0] = 0;
+    parent[0] = -1;
+
+    for (int count=0 ; count<N-1 ; count++)
+    {
+        int u = minKey(key, mstSet);
+        mstSet[u] = true;
+        for (int v=0 ; v<N ; v++)
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+                parent[v] = u, key[v] = graph[u][v];
+    }
+
+    Display(parent, graph);
+}
+
+int main()
+{
+
+    int graph[N][N] = { { 0, 2, 0, 6, 0 },
+                        { 2, 0, 3, 8, 5 },
+                        { 0, 3, 0, 0, 7 },
+                        { 6, 8, 0, 0, 9 },
+                        { 0, 5, 7, 9, 0 } };
+
+    prims_MST(graph);
+
+    return 0;
+}
+
+

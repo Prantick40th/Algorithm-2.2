@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int lcs(char *x,char *y,int m,int n)
+{
+    int c[100][100];
+
+    for(int i=0 ; i<= m ;i++)
+        c[i][0] = 0;
+
+    for(int j=0 ;j<= n ; j++)
+        c[0][j] = 0;
+
+    for(int i=0 ; i<= m ; i++)
+        for(int j = 0;j<= n;j++){
+            if(x[i-1]==y[j-1])
+                c[i][j]=c[i-1][j-1]+1;
+            else
+                c[i][j]=max(c[i-1][j],c[i][j-1]);
+        }
+    return c[m][n];
+}
+int main ()
+{
+    char a[1000],b[2000];
+
+    cout << "first string: ";
+    cin>>a;
+    cout <<endl;
+    cout << "second string: ";
+    cin>>b;
+    cout <<endl;
+
+    cout<<"Length of LCS: "<<lcs(a,b,strlen(a),strlen(b))<<endl;
+}

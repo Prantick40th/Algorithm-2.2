@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define LENGTH 30
+
+int n, m;
+int w[LENGTH], x[LENGTH];
+
+void sumOfSubset(int sum, int k, int r)
+{
+    x[k] = 1;
+
+    if(sum + w[k] == m)
+    {
+        for(int i=1 ; i <= n; i++)
+        {
+            if(i > k)
+            {
+                x[i] = 0;
+            }
+            printf("%d\t",x[i]);
+        }
+        printf("\n");
+
+        return;
+    }
+    else if(sum + w[k] +  w[k + 1] <= m)
+    {
+        sumOfSubset(sum + w[k], k + 1, r- w[k]);
+    }
+
+    if((sum + r- w[k] >= m) && (sum + w[k+1] <= m))
+    {
+        x[k] = 0;
+
+        sumOfSubset(sum, k + 1, r-w[k]);
+    }
+}
+
+int main()
+{
+
+
+    printf("number of elements: ");
+    scanf("%d",&n);
+
+    printf ("\nset of elements: ");
+    int r = 0;
+    for(int i = 1; i <= n; i++)
+    {
+        scanf("%d",w[i]);
+        r+= w[i];
+    }
+
+    printf("\nsum: ");
+    cin >> m;
+
+    printf( "\nAll Possible subsets:\n" );
+
+    for(int i = 1; i <= n; i++)
+    {
+        printf ("%d\t",w[i]);
+    }
+
+    printf("\n");
+
+    int sum = 0, k = 1;
+
+    sumOfSubset(sum, k, r);
+
+    return 0;
+}
